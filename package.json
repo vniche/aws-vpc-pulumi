@@ -1,0 +1,37 @@
+{
+  "name": "@vniche/aws-vpc-pulumi",
+  "version": "0.0.1",
+  "description": "A Pulumi NPM library to ease VPC resources setup",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vniche/aws-vpc-pulumi.git"
+  },
+  "scripts": {
+    "build": "rm -rf bin && tsc && cp package.json bin/",
+    "deploy": "npm publish"
+  },
+  "keywords": [
+    "pulumi",
+    "infrastructureascode",
+    "aws",
+    "network"
+  ],
+  "author": "Vinicius Niche Correa <viniciusnichecorrea@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vniche/aws-vpc-pulumi/issues"
+  },
+  "homepage": "https://github.com/vniche/aws-vpc-pulumi#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@pulumi/aws": "^6.9.0",
+    "@pulumi/pulumi": "^3.94.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5.2.2"
+  }
+}
