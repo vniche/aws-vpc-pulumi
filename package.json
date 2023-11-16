@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "rm -rf bin && tsc && cp README.md LICENSE package.json bin/",
-    "publish": "cd bin && npm publish"
+    "deploy": "cd bin && npm publish"
   },
   "keywords": [
     "pulumi",
