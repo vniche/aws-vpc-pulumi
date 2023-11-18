@@ -25,9 +25,9 @@ To use this library import on your (node-based, of course) Pulumi program code. 
 ### VPC with two public subnets
 
 ```typescript
-import { NetworkConfig, Subnet, SubnetType, createNetwork } from "@vniche/aws-vpc-pulumi";
+import { SubnetType, Network } from "@vniche/aws-vpc-pulumi";
 
-const { vpcId, subnets } = createNetwork({
+const { vpcId, subnets } = new Network({
     cidrBlock: "10.0.0.0/20",
     subnets: [
         {
@@ -47,9 +47,9 @@ const { vpcId, subnets } = createNetwork({
 ### VPC with two public and two private subnets
 
 ```typescript
-import { NetworkConfig, Subnet, SubnetType, createNetwork } from "@vniche/aws-vpc-pulumi";
+import { SubnetType, Network } from "@vniche/aws-vpc-pulumi";
 
-const { vpcId, subnets } = createNetwork({
+const { vpcId, subnets } = new Network({
     cidrBlock: "10.0.0.0/20",
     subnets: [
         {
@@ -79,9 +79,9 @@ const { vpcId, subnets } = createNetwork({
 ### VPC with two public and two private subnets plus a NAT Gateway (in one availability zone)
 
 ```typescript
-import { NATOptions, NetworkConfig, Subnet, SubnetType, createNetwork } from "@vniche/aws-vpc-pulumi";
+import { NATOptions, SubnetType, Network } from "@vniche/aws-vpc-pulumi";
 
-const { vpcId, subnets } = createNetwork({
+const { vpcId, subnets } = new Network({
     nat: NATOptions.InOneAZ,
     cidrBlock: "10.0.0.0/20",
     subnets: [
@@ -93,9 +93,9 @@ const { vpcId, subnets } = createNetwork({
 ### VPC with two public and two private subnets plus a NAT Gateway (one per availability zone)
 
 ```typescript
-import { NATOptions, NetworkConfig, Subnet, SubnetType, createNetwork } from "@vniche/aws-vpc-pulumi";
+import { NATOptions, SubnetType, Network } from "@vniche/aws-vpc-pulumi";
 
-const { vpcId, subnets } = createNetwork({
+const { vpcId, subnets } = new Network({
     nat: NATOptions.OnePerAZ,
     cidrBlock: "10.0.0.0/20",
     subnets: [
@@ -124,11 +124,11 @@ config:
 And import it in your program:
 
 ```typescript
-import { NetworkConfig, createNetwork } from "@vniche/aws-vpc-pulumi";
+import { NetworkConfig, Network } from "@vniche/aws-vpc-pulumi";
 
 const networkConfig: NetworkConfig = config.requireObject("network");
 
-const { vpcId, subnets } = createNetwork({
+const { vpcId, subnets } = new Network({
     ...networkConfig
 });
 ```

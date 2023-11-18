@@ -28,17 +28,20 @@ export type CreateNetworkArgs = NetworkConfig & {
     tags?: pulumi.Input<{ [key: string]: pulumi.Input<string> }> | undefined
 };
 
-export type NATConfig = {
+type NATProps = {
     subnetId: pulumi.Output<string>;
     az: string;
+};
+
+export type CreateNATArgs = NATProps & {
     tags?: pulumi.Input<{ [key: string]: pulumi.Input<string> }> | undefined
-}
+};
+
+export type CreateNATRouteTableArgs = NATProps & {
+    vpcId: pulumi.Output<string>;
+    natGatewayId: pulumi.Output<string>;
+};
 
 export type Subnet = SubnetConfig & {
     resource: aws.ec2.Subnet
-};
-
-export type Network = {
-    vpcId: pulumi.Output<string>;
-    subnets: Subnet[];
 };
