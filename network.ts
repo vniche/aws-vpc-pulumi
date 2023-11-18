@@ -1,8 +1,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
-import { Subnet, SubnetType, NATOptions, NetworkConfig, Network, NATConfig } from "./types";
+import { Subnet, SubnetType, NATOptions, NetworkConfig, Network, NATConfig, CreateNetworkArgs } from "./types";
 
-function validateNetworkConfig({ nat, subnets }: NetworkConfig) {
+function validateNetworkArgs({ nat, subnets }: CreateNetworkArgs) {
     switch (nat) {
         case undefined:
         case NATOptions.None:
@@ -16,18 +16,19 @@ function validateNetworkConfig({ nat, subnets }: NetworkConfig) {
     }
 }
 
-export function createNetwork(config: NetworkConfig): Network {
-    validateNetworkConfig(config);
+export function createNetwork(args: CreateNetworkArgs): Network {
+    validateNetworkArgs(args);
 
-    const vpc = new aws.ec2.Vpc("vpc", {
-        cidrBlock: config.cidrBlock,
-        tags: config.tags
-    });
-
-    const { nat, subnets: subnetsConfigs } = config;
+    const { nat, subnets: subnetsConfigs, tags } = args;
     if (subnetsConfigs.length == 0) {
         throw new Error("No subnets configs provided")
     }
+
+    const vpc = new aws.ec2.Vpc("vpc", {
+        cidrBlock: args.cidrBlock,
+        tags
+    });
+
 
     let internetGateway: aws.ec2.InternetGateway | undefined = undefined;
 
@@ -40,7 +41,7 @@ export function createNetwork(config: NetworkConfig): Network {
             cidrBlock: cidrBlock,
             availabilityZone: az,
             mapPublicIpOnLaunch: (type === SubnetType.Public),
-            tags: config.tags
+            tags
         });
 
         switch (type) {
@@ -102,7 +103,7 @@ export function createNetwork(config: NetworkConfig): Network {
                 natGateways.push(createNATGateway({
                     subnetId: current.resource.id,
                     az: current.az,
-                    tags: config.tags
+                    tags
                 }));
             });
 
@@ -120,7 +121,7 @@ export function createNetwork(config: NetworkConfig): Network {
             const natGateway = createNATGateway({
                 subnetId: subnet.resource.id,
                 az: subnet.az,
-                tags: config.tags
+                tags
             });
 
             subnets.filter(({ type }) => type === SubnetType.Private).forEach((current) => {

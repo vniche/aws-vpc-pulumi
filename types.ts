@@ -22,6 +22,9 @@ export type NetworkConfig = {
     cidrBlock: string;
     nat?: NATOptions | undefined;
     subnets: SubnetConfig[];
+};
+
+export type CreateNetworkArgs = NetworkConfig & {
     tags?: pulumi.Input<{ [key: string]: pulumi.Input<string> }> | undefined
 };
 
