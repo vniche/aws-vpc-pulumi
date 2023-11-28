@@ -99,7 +99,7 @@ export class Network extends pulumi.ComponentResource {
             throw new Error("No subnets configs provided")
         }
 
-        const vpc = new aws.ec2.Vpc(`${name}- vpc`, {
+        const vpc = new aws.ec2.Vpc(`${name}-vpc`, {
             cidrBlock: args.cidrBlock,
             tags
         }, {
