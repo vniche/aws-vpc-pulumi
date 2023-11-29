@@ -1,6 +1,6 @@
 {
   "name": "@vniche/aws-vpc-pulumi",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A Pulumi NPM library to ease VPC resources setup",
   "repository": {
     "type": "git",

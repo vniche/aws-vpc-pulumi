@@ -90,7 +90,7 @@ export class Network extends pulumi.ComponentResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args: CreateNetworkArgs, opts?: pulumi.CustomResourceOptions) {
-        super("AWSNetwork", name);
+        super("Network", name);
         this.name = name;
         this.validateNetworkArgs(args);
 
