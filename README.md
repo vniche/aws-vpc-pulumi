@@ -1,6 +1,6 @@
 # aws-vpc-pulumi
 
-A Pulumi NPM library to ease VPC resources setup
+A Pulumi NPM library to ease VPC resources setup on AWS
 
 This library is inspired in the current version of the "Create VPC" wizard from the AWS Console:
 
